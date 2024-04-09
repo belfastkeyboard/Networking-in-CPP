@@ -1,3 +1,6 @@
+#ifndef NETWORKING_SERVER_TCP
+#define NETWORKING_SERVER_TCP 1
+
 #include "utils/utils.hpp"
 #include <string>
 #include <cstdio>
@@ -35,3 +38,5 @@ public:
     ~ServerTCP();
 
 };
+
+#endif 
