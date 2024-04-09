@@ -5,21 +5,15 @@ int main()
     ServerTCP Server(PORT, MessageReceived, ConnectionReceived);
 
     if (Server.Init())
-    {
         return EXIT_FAILURE;
-    }   
 
     if (Server.Run())
-    {
         return EXIT_FAILURE;
-    }
 
     if (Server.Cleanup())
-    {
         return EXIT_FAILURE;
-    }
 
-    return 0;
+    return EXIT_SUCCESS;
 }
 
 // define server functions here...
