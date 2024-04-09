@@ -6,7 +6,8 @@
 #include <winsock2.h>
 #include <ws2tcpip.h>
 #include <time.h>
-#include <stdbool.h>
+#include <string>
+#include <iostream>
 
 #include "status.h"
 
