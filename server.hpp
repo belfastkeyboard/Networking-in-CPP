@@ -5,38 +5,44 @@
 #include <string>
 #include <cstdio>
 
-class ServerTCP;
-
-void ConnectionReceived(ServerTCP* listener, SOCKET sock, fd_set* set);
-void MessageReceived(ServerTCP* listener, SOCKET sockfd, fd_set* set);
-
-// function pointer typedef
-typedef void(*ConnectionHandler)(ServerTCP* listener, SOCKET sock, fd_set* set);
-typedef void(*MessageHandler)(ServerTCP* listener, SOCKET sockfd, fd_set* set);
-
-class ServerTCP
+namespace TCP
 {
 
-private:
+    class Server;
 
-    SOCKET sock;
-    int port;
-    MessageHandler m_handler;
-    ConnectionHandler c_handler;
+    void ConnectionReceived(Server* listener, SOCKET sock, fd_set* set);
+    void MessageReceived(Server* listener, SOCKET sockfd, fd_set* set);
 
-public:
+    // function pointer typedef
+    typedef void(*ConnectionHandler)(Server* listener, SOCKET sock, fd_set* set);
+    typedef void(*MessageHandler)(Server* listener, SOCKET sockfd, fd_set* set);
 
-    STATUS Init();
-    STATUS Run();
-    STATUS Cleanup();
+    class Server
+    {
 
-    // make SendMessage an async operation? actual online transmission will slow down the server otherwise
-    void SendMessage(std::string message, SOCKET sockfd);
-    void BroadcastMessage(std::string message, fd_set* set, SOCKET sockfd);
+    private:
 
-    ServerTCP(int port, MessageHandler mHandler, ConnectionHandler cHandler);
-    ~ServerTCP();
+        SOCKET sock;
+        int port;
+        MessageHandler m_handler;
+        ConnectionHandler c_handler;
 
-};
+    public:
+
+        STATUS Init();
+        STATUS Run();
+        STATUS Cleanup();
+
+        // make SendMessage an async operation? actual online transmission will slow down the server otherwise
+        void SendMessage(std::string message, SOCKET sockfd);
+        void BroadcastMessage(std::string message, fd_set* set, SOCKET sockfd);
+
+        Server(int port, MessageHandler mHandler, ConnectionHandler cHandler);
+        ~Server();
+
+    };
+
+}
+
 
 #endif 

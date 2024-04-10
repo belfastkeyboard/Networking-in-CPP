@@ -3,26 +3,32 @@
 
 #include "utils/utils.hpp"
 
-DWORD WINAPI ThreadSendMessage(LPVOID lpParam);
-
-class ClientTCP
+namespace TCP
 {
 
-private:
+    DWORD WINAPI ThreadSendMessage(LPVOID lpParam);
 
-    SOCKET sock;
-    int port;
-    std::string addr;
+    class Client
+    {
 
-public:
+    private:
 
-    STATUS Init();
-    STATUS Run();
-    STATUS Cleanup();
+        SOCKET sock;
+        int port;
+        std::string addr;
 
-    ClientTCP(int port, std::string ip_addr);
-    ~ClientTCP();
+    public:
 
-};
+        STATUS Init();
+        STATUS Run();
+        STATUS Cleanup();
+
+        Client(int port, std::string ip_addr);
+        ~Client();
+
+    };
+
+}
+
 
 #endif 

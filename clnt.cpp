@@ -2,7 +2,7 @@
 
 int main()
 {
-    ClientTCP Client(PORT, LOCALHOST);
+    TCP::Client Client(PORT, LOCALHOST);
 
     if (Client.Init())
         return EXIT_FAILURE;

@@ -2,7 +2,7 @@
 
 int main()
 {
-    ServerTCP Server(PORT, MessageReceived, ConnectionReceived);
+    TCP::Server Server(PORT, TCP::MessageReceived, TCP::ConnectionReceived);
 
     if (Server.Init())
         return EXIT_FAILURE;
@@ -17,7 +17,7 @@ int main()
 }
 
 // define server functions here...
-void MessageReceived(ServerTCP* listener, SOCKET sockfd, fd_set* set)
+void TCP::MessageReceived(Server* listener, SOCKET sockfd, fd_set* set)
 {
     char buffer[BUFFER_LEN];
     int bytes_rcvd;
@@ -52,7 +52,7 @@ void MessageReceived(ServerTCP* listener, SOCKET sockfd, fd_set* set)
     return;
 }
 
-void ConnectionReceived(ServerTCP* listener, SOCKET sock, fd_set* set)
+void TCP::ConnectionReceived(Server* listener, SOCKET sock, fd_set* set)
 {
     SOCKET sockfd;
     time_t current_time;

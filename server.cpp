@@ -1,6 +1,6 @@
 #include "server.hpp"
 
-STATUS ServerTCP::Init()
+STATUS TCP::Server::Init()
 {
     WORD ver;
     WSADATA data;
@@ -84,7 +84,7 @@ STATUS ServerTCP::Init()
     return EXIT_SUCCESS;
 }
 
-STATUS ServerTCP::Run()
+STATUS TCP::Server::Run()
 {
     int sockets;
     fd_set master;
@@ -130,7 +130,7 @@ STATUS ServerTCP::Run()
     return EXIT_SUCCESS;
 }
 
-STATUS ServerTCP::Cleanup()
+STATUS TCP::Server::Cleanup()
 {
     int result;
 
@@ -157,7 +157,7 @@ STATUS ServerTCP::Cleanup()
     return result;
 }
 
-void ServerTCP::SendMessage(std::string message, SOCKET sockfd)
+void TCP::Server::SendMessage(std::string message, SOCKET sockfd)
 {
     int result;
     time_t current_time;
@@ -190,7 +190,7 @@ void ServerTCP::SendMessage(std::string message, SOCKET sockfd)
     printf("[%02d:%02d:%02d] Message '%s' sent to socket '%d'.\n", local_time->tm_hour, local_time->tm_min, local_time->tm_sec, message.c_str(), sockfd);
 }
 
-void ServerTCP::BroadcastMessage(std::string message, fd_set* set, SOCKET sockfd)
+void TCP::Server::BroadcastMessage(std::string message, fd_set* set, SOCKET sockfd)
 {
     SOCKET user;
 
@@ -205,9 +205,9 @@ void ServerTCP::BroadcastMessage(std::string message, fd_set* set, SOCKET sockfd
     }
 }
 
-ServerTCP::ServerTCP(int port, MessageHandler mHandler, ConnectionHandler cHandler) : port(port), m_handler(mHandler), c_handler(cHandler) {}
+TCP::Server::Server(int port, MessageHandler mHandler, ConnectionHandler cHandler) : port(port), m_handler(mHandler), c_handler(cHandler) {}
 
-ServerTCP::~ServerTCP()
+TCP::Server::~Server()
 {
     WSACleanup();
 }

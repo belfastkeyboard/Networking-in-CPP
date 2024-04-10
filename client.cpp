@@ -1,6 +1,6 @@
 #include "client.hpp"
 
-DWORD WINAPI ThreadSendMessage(LPVOID lpParam)
+DWORD __stdcall TCP::ThreadSendMessage(LPVOID lpParam)
 {
     SOCKET sockfd;
     std::string input;
@@ -33,7 +33,7 @@ DWORD WINAPI ThreadSendMessage(LPVOID lpParam)
     return EXIT_SUCCESS;
 }
 
-STATUS ClientTCP::Init()
+STATUS TCP::Client::Init()
 {
     WORD ver;
     WSADATA data;
@@ -97,7 +97,7 @@ STATUS ClientTCP::Init()
     return EXIT_SUCCESS;
 }
 
-STATUS ClientTCP::Run()
+STATUS TCP::Client::Run()
 {
     HANDLE threadHANDLE;
     DWORD threadID;
@@ -153,7 +153,7 @@ STATUS ClientTCP::Run()
     return EXIT_SUCCESS;
 }
 
-STATUS ClientTCP::Cleanup()
+STATUS TCP::Client::Cleanup()
 {
     int result;
 
@@ -180,9 +180,9 @@ STATUS ClientTCP::Cleanup()
     return result;
 }
 
-ClientTCP::ClientTCP(int port, std::string ip_addr) : port(port), addr(ip_addr) {}
+TCP::Client::Client(int port, std::string ip_addr) : port(port), addr(ip_addr) {}
 
-ClientTCP::~ClientTCP()
+TCP::Client::~Client()
 {
     WSACleanup();
 }
