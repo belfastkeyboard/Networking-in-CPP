@@ -166,7 +166,7 @@ void TCP::Server::SendMessage(std::string message, SOCKET sockfd)
     DWORD bytes_sent;
     OVERLAPPED overlapped;
 
-
+    message.push_back('\n');
     buff.buf = (char*)message.c_str();
     buff.len = message.length();
 
